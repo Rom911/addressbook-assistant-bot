@@ -2,6 +2,7 @@ from collections import UserDict
 from datetime import datetime
 from src.utils.validators import validate_phone, validate_email, validate_birthday
 
+
 class Field:
     def __init__(self, value):
         self.value = value
@@ -86,7 +87,7 @@ class Record:
             validate_phone(new_phone)
             phone.value = new_phone
             return phone
-        return None
+        return "Invalid phone format."
         # for idx, p in enumerate(self.phones):
         #     if p.value == old_phone:
         #         self.phones[idx] = Phone(new_phone)
