@@ -1,0 +1,18 @@
+[project]
+name = "addressbook-assistant-bot"
+version = "0.1.0"
+description = "CLI assistant bot for managing contacts, birthdays, emails, addresses, and notes"
+authors = [
+    { name="Roman", email="your_email@example.com" },
+    { name="Maksym", email="maksym_email@example.com" },
+    { name="Andriy", email="andriy_email@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = ["src"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
