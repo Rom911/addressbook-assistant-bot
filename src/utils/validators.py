@@ -1,25 +1,22 @@
+from datetime import datetime, date
 import re
-from datetime import datetime
 
 def validate_phone(phone):
-    """
-    Validates that the phone number is in international format starting with + and 10-15 digits.
-    """
-    pattern = r"^\+\d{10,15}$"
-    return re.fullmatch(pattern, phone)
+    pattern = re.compile(r"^\+?\d{10,15}$")
+    if not pattern.match(phone):
+        raise ValueError("Invalid phone format")
+    return phone
 
 def validate_email(email):
-    """
-    Validates the email format.
-    """
-    pattern = r"[^@]+@[^@]+\.[^@]+"
-    return re.fullmatch(pattern, email)
+    pattern = re.compile(r"^[\w\.-]+@[\w\.-]+\.\w+$")
+    if not pattern.match(email):
+        raise ValueError("Invalid email format")
+    return email
 
 def validate_birthday(birthday):
-    """
-    Validates that the birthday is in DD.MM.YYYY format and converts it to datetime object.
-    """
+    if isinstance(birthday, date):
+        return birthday
     try:
-        return datetime.strptime(birthday, "%d.%m.%Y")
+        return datetime.strptime(birthday, "%d.%m.%Y").date()
     except ValueError:
         raise ValueError("Invalid date format. Use DD.MM.YYYY")

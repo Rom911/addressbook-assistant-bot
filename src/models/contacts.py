@@ -1,50 +1,30 @@
-from collections import UserDict
+import pickle
 from datetime import datetime
+from collections import UserDict
 from src.utils.validators import validate_phone, validate_email, validate_birthday
+
+# ----------------- Field classes -----------------
 
 class Field:
     def __init__(self, value):
         self.value = value
 
-    def __str__(self):
-        return str(self.value)
-
-
 class Name(Field):
     pass
 
-
 class Phone(Field):
     def __init__(self, value):
-        if not validate_phone(value):
-            raise ValueError("Invalid phone number format. It should start with + and contain 10-15 digits.")
-        super().__init__(value)
-
+        super().__init__(validate_phone(value))
 
 class Email(Field):
     def __init__(self, value):
-        if not validate_email(value):
-            raise ValueError("Invalid email format.")
-        super().__init__(value)
-
+        super().__init__(validate_email(value))
 
 class Birthday(Field):
     def __init__(self, value):
-        date_obj = validate_birthday(value)
-        super().__init__(date_obj)
+        super().__init__(validate_birthday(value))
 
-
-class Address(Field):
-    def __init__(self, country="", city="", street="", house="", apartment=""):
-        self.country = country
-        self.city = city
-        self.street = street
-        self.house = house
-        self.apartment = apartment
-
-    def __str__(self):
-        return f"{self.country}, {self.city}, {self.street} {self.house}, Apt {self.apartment}"
-
+# ----------------- Record class -----------------
 
 class Record:
     def __init__(self, name):
@@ -52,42 +32,64 @@ class Record:
         self.phones = []
         self.email = None
         self.birthday = None
-        self.address = None
 
+    # Phone methods
     def add_phone(self, phone):
         self.phones.append(Phone(phone))
 
-    def remove_phone(self, phone):
-        self.phones = [p for p in self.phones if p.value != phone]
-
-    def edit_phone(self, old_phone, new_phone):
+    def change_phone(self, old_phone, new_phone):
         for idx, p in enumerate(self.phones):
             if p.value == old_phone:
                 self.phones[idx] = Phone(new_phone)
                 return True
         return False
 
-    def find_phone(self, phone):
+    def delete_phone(self, phone):
         for p in self.phones:
             if p.value == phone:
-                return p.value
-        return None
+                self.phones.remove(p)
+                return True
+        return False
 
-    def add_birthday(self, birthday):
-        self.birthday = Birthday(birthday)
-
+    # Email methods
     def add_email(self, email):
         self.email = Email(email)
 
-    def add_address(self, country="", city="", street="", house="", apartment=""):
-        self.address = Address(country, city, street, house, apartment)
+    def change_email(self, new_email):
+        if self.email:
+            self.email = Email(new_email)
+            return True
+        return False
+
+    def delete_email(self):
+        if self.email:
+            self.email = None
+            return True
+        return False
+
+    # Birthday methods
+    def add_birthday(self, birthday):
+        self.birthday = Birthday(birthday)
+
+    def change_birthday(self, birthday):
+        if self.birthday:
+            self.birthday = Birthday(birthday)
+            return True
+        return False
+
+    def delete_birthday(self):
+        if self.birthday:
+            self.birthday = None
+            return True
+        return False
 
     def __str__(self):
-        phones = '; '.join(p.value for p in self.phones)
-        return (f"Name: {self.name.value}, Phones: {phones}, "
-                f"Email: {self.email}, Birthday: {self.birthday}, "
-                f"Address: {self.address}")
+        phones_str = ", ".join(p.value for p in self.phones)
+        email_str = self.email.value if self.email else ""
+        birthday_str = self.birthday.value.strftime("%d.%m.%Y") if self.birthday else ""
+        return f"Name: {self.name.value}, Phones: {phones_str}, Email: {email_str}, Birthday: {birthday_str}"
 
+# ----------------- AddressBook class -----------------
 
 class AddressBook(UserDict):
     def add_record(self, record):
@@ -99,13 +101,28 @@ class AddressBook(UserDict):
     def delete(self, name):
         if name in self.data:
             del self.data[name]
-            return f"Contact '{name}' deleted."
-        return f"Contact '{name}' not found."
 
-    def get_upcoming_birthdays(self, start_date, end_date):
-        result = []
-        for record in self.data.values():
-            if record.birthday:
-                if start_date <= record.birthday.value <= end_date:
-                    result.append(record)
-        return result
+    # change_phone
+
+    def save_to_file(self, filename="addressbook.pkl"):
+        with open(filename, "wb") as f:
+            # pickle.dump(self, f)
+            pickle.dump(self.data, f)
+
+    # @staticmethod
+    # def load_from_file(filename="addressbook.pkl"):
+    #     try:
+    #         with open(filename, "rb") as f:
+    #             return pickle.load(f)
+    #     except FileNotFoundError:
+    #         return AddressBook()
+    @classmethod
+    def load_from_file(cls, filename="addressbook.pkl"):
+        try:
+            with open(filename, "rb") as f:
+                data = pickle.load(f)
+                book = cls()
+                book.data = data
+                return book
+        except FileNotFoundError:
+            return cls()

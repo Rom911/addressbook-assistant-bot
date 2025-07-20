@@ -1,36 +1,105 @@
-from src.models.contacts import AddressBook, Record
-from src.utils.serializers import save_data, load_data
-from colorama import init, Fore
-from prettytable import PrettyTable
+from src.models.contacts import AddressBook
+from src.services.serialization import load_book
+from src.commands import *
+from colorama import init, Fore, Back, Style
+from rich.console import Console
+
+console = Console()
 
 init(autoreset=True)
 
-
 def main():
-    book = load_data()
-    print(Fore.GREEN + "Welcome to the assistant bot!")
+    book = AddressBook.load_from_file()
+
+    # print(Fore.CYAN + Style.BRIGHT + "Welcome to the assistant bot!")
+    # print(show_help([]))
+    console.print("[bold cyan]Welcome to the Assistant Bot![/bold cyan]")
+    show_help()
 
     while True:
-        command = input("Enter a command: ").strip().lower()
+        # user_input = input(Fore.YELLOW + "Enter a command: ").strip()
+        user_input = input(Fore.YELLOW + "Enter a command: " + Style.RESET_ALL)
+        # user_input = input(Fore.WHITE + "Enter a command: ")
 
-        if command == "exit":
+        if not user_input:
+            continue
+
+        command, *args = parse_input(user_input)
+
+        # if not command:
+        #     continue
+
+        if command in ["close", "exit"]:
             save_data(book)
-            print("Good bye!")
+            print(Fore.GREEN + "Good bye! Data saved.")
             break
 
-        elif command == "all":
-            table = PrettyTable(["Name", "Phones", "Email", "Birthday", "Address"])
-            for record in book.data.values():
-                table.add_row([record.name.value,
-                               ', '.join(p.value for p in record.phones),
-                               record.email,
-                               record.birthday,
-                               record.address])
-            print(table)
+        elif command in COMMANDS:
+            print(COMMANDS[command](args, book))
 
+        # handler = COMMANDS.get(command)
+        # if handler:
+        #     print(handler(args, book))
         else:
-            print(Fore.RED + "Unknown command.")
-
+            # print(Fore.RED + "Unknown command. Type 'help' to see available commands.")
+            console.print("[bold red]Unknown command. Type 'help' to see available commands.[/bold red]")
 
 if __name__ == "__main__":
     main()
+
+
+# def main():
+#     book = AddressBook.load_from_file()
+#     print(Fore.CYAN + "Welcome to the assistant bot!")
+
+#     # Показати help при запуску
+#     print(show_help([], book))  # якщо show_help приймає book
+#     # або просто
+#     # print(show_help([]))
+
+#     while True:
+#         user_input = input(Fore.WHITE + "Enter a command: ")
+#         command, args = parse_input(user_input)
+
+#         if not command:
+#             continue
+
+#         handler = COMMANDS.get(command)
+#         if handler:
+#             print(handler(args, book))
+#         else:
+#             print(Fore.RED + "Unknown command. Type 'help' to see available commands.")
+
+# def show_help(*args):
+#     table = PrettyTable()
+#     table.field_names = ["Command", "Description"]
+
+#     table.add_rows([
+#         ["hello", Fore.GREEN + "Greet the user"],
+#         ["add [name] [phone]", Fore.GREEN + "Add new contact or phone"],
+#         # Додай інші команди аналогічно
+#     ])
+
+#     return table
+
+# from rich.console import Console
+# console = Console()
+
+# def main():
+#     console.print("[bold cyan]Welcome to the Assistant Bot![/bold cyan]")
+#     show_help()  # Показываем help сразу при запуске
+
+#     while True:
+#         user_input = input(Fore.YELLOW + "Enter a command: " + Style.RESET_ALL)
+
+#         if not user_input:
+#             continue
+
+#         command, *args = parse_input(user_input)
+
+#         if command in COMMANDS:
+#             result = COMMANDS[command](args, book)
+#             if result:
+#                 console.print(result)
+#         else:
+#             console.print("[bold red]Unknown command.[/bold red]")
