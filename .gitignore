@@ -1,0 +1,91 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+ENV/
+env/
+
+# IDE, VS Code settings
+.vscode/
+,idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Compiled files
+*.pyc
+*.pyo
+*.pyd
+
+# Pytest cache
+.pytest_cache/
+
+# MyPy cache
+.mypy_cache/
+
+# Test and coverage outputs
+htmlcov/
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+
+*.tmp
+*.bak
+*.swp
+
+# Package distribution
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Local environment variables
+*.env
+*.env
+
+.idea/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Backup files
+*~
+
+# OS generated files
+ehthumbs.db
+Desktop.ini
+
+# PyCharm specific
+*.iml
+
+# VS Code specific
+*.code-workspace
+
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# MyPy cache
+.mypy_cache/
+
+# Pytest cache
+.pytest_cache/
+
+# Profiling data
+.prof
+
+# Sphinx documentation
+docs/_build/
