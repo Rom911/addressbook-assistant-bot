@@ -4,7 +4,7 @@
 
 CLI бот-асистент для управління контактами, днями народження, адресами, email та нотатками.
 
-### 🔧 Функціонал:
+# 🔧 Функціонал:
 
 - Додавання, редагування, видалення контактів
 - Збереження номерів телефонів з валідацією міжнародного формату
@@ -17,57 +17,71 @@ CLI бот-асистент для управління контактами, д
 - Красиві таблиці (prettytable)
 - Структура SRC + запуск через pyproject.toml
 
-## 🚀 **Запуск**
+# 🚀 **Встановлення та запуск**
 
-```bash
-python -m src.main
+1. Клонувати репозиторій:
 
----
+- git clone https://github.com/Rom911/addressbook-assistant-bot
+- cd addressbook-assistant-bot
 
-## 🇬🇧 Description
+2. Встановити залежності:
 
-CLI assistant bot for managing contacts, birthdays, addresses, emails, and notes.
+- pip install -e .
 
-### 🔧 Features:
+3. Запуск бота:
 
+Windows:
+
+- python -m src.main
+
+Mac/Linux:
+
+- python3 -m src.main
+
+## GB Description
+
+# CLI assistant bot for managing contacts, birthdays, addresses, emails, and notes.
+
+# 🔧 Features:
 - Add, edit, delete contacts
 - Phone validation (international format)
 - Email validation
-- Add address (country, city, street, building, apartment)
+- Add addresses (country, city, street, building, apartment)
 - Save birthdays and view upcoming birthdays within date range
 - Notes: create, edit, delete, search, tags, sort
-- Data serialization with pickle
+- Data persistence with pickle serialization
 - Colorful CLI output (colorama)
 - Pretty tables (prettytable)
 - SRC project structure + pyproject.toml for easy installation
 
----
-
-## 🚀 **Installation**
+# 🚀 Installation
 
 1. Clone the repository:
 
-git clone https://github.com/Rom911/addressbook-assistant-bot
-cd addressbook-assistant-bot
+- git clone https://github.com/Rom911/addressbook-assistant-bot
+- cd addressbook-assistant-bot
 
 2. Install dependencies:
 
-pip install -e .
+- pip install -e .
 
-3. Run:
+3. Run the assistant bot:
 
-python -m src.main
+Windows:
 
----
+- python -m src.main
 
-## 👥 **Authors**
+Mac/Linux:
+
+- python3 -m src.main
+
+# 👥 Authors
 
 - Roman
 - Maksym
 - Andriy
 
----
+# 📄 License
 
-## 📄 License
+- This project is licensed under the MIT License.
 
-This project is licensed under the MIT License.

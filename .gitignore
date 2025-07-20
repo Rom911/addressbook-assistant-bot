@@ -8,13 +8,15 @@ venv/
 ENV/
 env/
 
-# IDE, VS Code settings
+# IDE settings
 .vscode/
-,idea/
+.idea/
 
 # OS files
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
 # Logs
 *.log
@@ -24,12 +26,6 @@ Thumbs.db
 *.pyo
 *.pyd
 
-# Pytest cache
-.pytest_cache/
-
-# MyPy cache
-.mypy_cache/
-
 # Test and coverage outputs
 htmlcov/
 .coverage
@@ -37,10 +33,14 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+.pytest_cache/
+.mypy_cache/
 
+# Temporary, backup and swap files
 *.tmp
 *.bak
 *.swp
+*~
 
 # Package distribution
 *.egg
@@ -50,26 +50,15 @@ build/
 
 # Local environment variables
 *.env
-*.env
-
-.idea/
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints
-
-# Backup files
-*~
-
-# OS generated files
-ehthumbs.db
-Desktop.ini
 
 # PyCharm specific
 *.iml
 
 # VS Code specific
 *.code-workspace
-
 
 # Spyder project settings
 .spyderproject
@@ -78,14 +67,11 @@ Desktop.ini
 # Rope project settings
 .ropeproject
 
-# MyPy cache
-.mypy_cache/
-
-# Pytest cache
-.pytest_cache/
-
 # Profiling data
 .prof
 
 # Sphinx documentation
 docs/_build/
+
+# Local temporary test files
+temp.py
