@@ -36,7 +36,7 @@ def show_help(args=None, book=None, notes=None):
 
     commands_list = [
         ("hello", "Greets the user"),
-        ("add <name> <phone>", "Add new contact or phone"),
+        ("add <name> <phone>", "Add new contact and phone"),
         ("change <name> <old_phone> <new_phone>", "Change existing phone number"),
         ("phone <name>", "Show phone numbers for contact"),
         ("delete-contact <name>", "Delete contact"),
