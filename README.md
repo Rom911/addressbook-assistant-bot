@@ -14,7 +14,7 @@ CLI бот-асистент для управління контактами, д
 - Нотатки: створення, редагування, видалення, пошук, теги, сортування
 - Серіалізація даних (pickle)
 - Кольоровий вивід (colorama)
-- Красиві таблиці (prettytable)
+- Красиві таблиці (rich)
 - Структура SRC + запуск через pyproject.toml
 
 # 🚀 **Встановлення та запуск**
@@ -51,7 +51,7 @@ Mac/Linux:
 - Notes: create, edit, delete, search, tags, sort
 - Data persistence with pickle serialization
 - Colorful CLI output (colorama)
-- Pretty tables (prettytable)
+- Rich (rich)
 - SRC project structure + pyproject.toml for easy installation
 
 # 🚀 Installation
@@ -78,8 +78,8 @@ Mac/Linux:
 # 👥 Authors
 
 - Roman
-- Maksym
 - Andriy
+- Maksym
 
 # 📄 License
 

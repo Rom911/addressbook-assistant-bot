@@ -43,6 +43,8 @@ def show_help(args=None, book=None, notes=None):
         ("add-email <name> <email>", "Add email"),
         ("change-email <name> <new_email>", "Change email"),
         ("delete-email <name>", "Delete email"),
+        # ("add-address <name> <country> <city> <street> <building> <apartment>", "Add address to contact"),
+        #("add-address <name> <country> <city>", "Add address to contact"),
         ("add-birthday <name> <DD.MM.YYYY>", "Add birthday"),
         ("change-birthday <name> <DD.MM.YYYY>", "Change birthday"),
         ("delete-birthday <name>", "Delete birthday"),
@@ -142,6 +144,27 @@ def delete_email(args=None, book=None, notes=None):
     if record and record.delete_email():
         return Fore.GREEN + f"{name}'s email deleted."
     return Fore.RED + "Contact not found or email not set."
+
+
+#@input_error
+# def add_address(args=None, book=None, notes=None):
+#     if len(args) < 6:
+#         return Fore.RED + "Not enough arguments. Usage: add-address <name> <country> <city> <street> <building> <apartment>"
+#     name, country, city, street, building, apartment = args
+#     record = book.find(name)
+#     if record:
+#         record.add_address(country, city, street, building, apartment)
+#         return Fore.GREEN + f"{name}'s address added/updated."
+#     return Fore.RED + "Contact not found."
+# def add_address(args=None, book=None, notes=None):
+#     if len(args) < 6:
+#         return Fore.RED + "Not enough arguments. Usage: add-address <name> <country> <city>"
+#     name, country, city = args
+#     record = book.find(name)
+#     if record:
+#         record.add_address(country, city)
+#         return Fore.GREEN + f"{name}'s address added/updated."
+#     return Fore.RED + "Contact not found."
 
 
 @input_error
@@ -251,11 +274,23 @@ def all_contacts(args=None, book=None, notes=None):
     table.add_column("Phones", style="cyan")
     table.add_column("Email", style="yellow")
     table.add_column("Birthday", style="blue")
+    #table.add_column("Address", style="magenta")
 
     for name, record in book.data.items():
         phones = ', '.join([p.value for p in record.phones])
         email = record.email.value if record.email else ''
         birthday = record.birthday.value.strftime("%d.%m.%Y") if record.birthday else ''
+        
+        # address = ""
+        # if record.address:
+        #     addr = record.address
+        #     address = f"{addr.country}, {addr.city}, {addr.street} {addr.building}/{addr.apartment}"
+        # address = ""
+        # if record.address:
+        #     addr = record.address
+        #     address = f"{addr.country}, {addr.city}"
+        
+        # table.add_row(name, phones, email, birthday, address)
         table.add_row(name, phones, email, birthday)
 
     console.print(table)
@@ -269,7 +304,6 @@ def exit_bot(args=None, book=None, notes=None):
     """
     print(Fore.YELLOW + "Saving data and exiting... Goodbye!")
     book.save_to_file()
-    # notes.save_to_file()  # implement if needed
     sys.exit()
 
 
@@ -286,6 +320,7 @@ COMMANDS = {
     "add-birthday": add_birthday,
     "change-birthday": change_birthday,
     "delete-birthday": delete_birthday,
+    #"add-address": add_address,
     "birthdays": birthdays,
     "add-note": add_note,
     "change-note": change_note,

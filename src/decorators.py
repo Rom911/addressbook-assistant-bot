@@ -10,6 +10,8 @@ def input_error(func):
         except KeyError:
             return f"{func.__name__}: Key not found."
         except ValueError as ve:
+            if "not enough values to unpack" in str(ve):
+                return f"{func.__name__}: Not enough arguments."
             return f"{func.__name__}: Invalid value. {ve}"
         except Exception as e:
             return f"{func.__name__}: Unexpected error. {e}"
