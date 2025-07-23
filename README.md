@@ -26,7 +26,7 @@ CLI бот-асистент для управління контактами, д
 
 2. Встановити залежності:
 
-- pip install -e .
+- pip install colorama rich
 
 3. Запуск бота:
 
@@ -63,7 +63,7 @@ Mac/Linux:
 
 2. Install dependencies:
 
-- pip install -e .
+- pip install colorama rich
 
 3. Run the assistant bot:
 

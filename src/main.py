@@ -33,7 +33,6 @@ def main():
 
             command, args = parse_input(user_input)
 
-            # Smart guess the command with fuzzy match and aliases
             guessed_command = smart_guess(command, COMMANDS, ALIASES)
 
             if guessed_command in ["close", "exit"]:
@@ -43,7 +42,6 @@ def main():
                 break
 
             elif guessed_command in COMMANDS:
-                # Execute the guessed command
                 result = COMMANDS[guessed_command](args, book, notes)
                 if result:
                     print(result)

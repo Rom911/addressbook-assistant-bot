@@ -45,7 +45,6 @@ class Record:
         self.phones = []
         self.email = None
         self.birthday = None
-        #self.address = None
 
     # Phone methods
     def add_phone(self, phone):
@@ -106,42 +105,10 @@ class Record:
             return True
         return False
 
-    # Address methods
-    # def add_address(self, country, city, street, building, apartment):
-    #     self.address = Address(country, city, street, building, apartment)
-    #def add_address(self, country, city):
-    #    self.address = Address(country, city)
-
-    # def change_address(self, country, city, street, building, apartment):
-    #     if self.address:
-    #         self.address = Address(country, city, street, building, apartment)
-    #         return True
-    #     return False
-    # def change_address(self, country, city):
-    #     if self.address:
-    #         self.address = Address(country, city)
-    #         return True
-    #     return False
-
-    # def delete_address(self):
-    #     if self.address:
-    #         self.address = None
-    #         return True
-    #     return False
-
     def __str__(self):
         phones_str = ", ".join(p.value for p in self.phones)
         email_str = self.email.value if self.email else ""
         birthday_str = self.birthday.value.strftime("%d.%m.%Y") if self.birthday else ""
-
-        # Format the address if it exists
-        # address_str = ""
-        # if self.address:
-        #     addr = self.address
-        #     # address_str = f"{addr.country}, {addr.city}, {addr.street} {addr.building}/{addr.apartment}"
-        #     address_str = f"{addr.country}, {addr.city}"
-
-        # return f"Name: {self.name.value}, Phones: {phones_str}, Email: {email_str}, Birthday: {birthday_str}, Address: {address_str}"
         return f"Name: {self.name.value}, Phones: {phones_str}, Email: {email_str}, Birthday: {birthday_str}"
     
 
@@ -181,18 +148,3 @@ class AddressBook(UserDict):
                 return book
         except FileNotFoundError:
             return cls()
-
-
-# class Address:
-#     # def __init__(self, country="", city="", street="", building="", apartment=""):
-#     def __init__(self, country="", city=""):
-#         self.country = country
-#         self.city = city
-#         # self.street = street
-#         # self.building = building
-#         # self.apartment = apartment
-
-#     def __str__(self):
-#         # parts = [self.country, self.city, self.street, self.building, self.apartment]
-#         parts = [self.country, self.city]
-#         return ", ".join([p for p in parts if p])

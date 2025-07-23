@@ -14,7 +14,6 @@ def guess_command(user_input, commands, aliases):
     matches = difflib.get_close_matches(user_input, possible, n=1, cutoff=0.8)
     if matches:
         return matches[0]
-    
     return None
 
 def smart_guess(user_input, commands, aliases):
@@ -22,6 +21,9 @@ def smart_guess(user_input, commands, aliases):
     
     if text in aliases:
         return aliases[text]
+    
+    if text in commands:
+        return text
     
     for cmd in commands:
         if cmd in text:
